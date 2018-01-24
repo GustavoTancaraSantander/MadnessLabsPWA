@@ -13,6 +13,70 @@ import {
 } from '@stencil/router';
 
 import {
+  AppApps as AppApps
+} from './components/app-apps/app-apps';
+
+declare global {
+  interface HTMLAppAppsElement extends AppApps, HTMLElement {
+  }
+  var HTMLAppAppsElement: {
+    prototype: HTMLAppAppsElement;
+    new (): HTMLAppAppsElement;
+  };
+  interface HTMLElementTagNameMap {
+    "app-apps": HTMLAppAppsElement;
+  }
+  interface ElementTagNameMap {
+    "app-apps": HTMLAppAppsElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "app-apps": JSXElements.AppAppsAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface AppAppsAttributes extends HTMLAttributes {
+      
+    }
+  }
+}
+
+
+import {
+  AppCard as AppCard
+} from './components/app-card/app-card';
+
+declare global {
+  interface HTMLAppCardElement extends AppCard, HTMLElement {
+  }
+  var HTMLAppCardElement: {
+    prototype: HTMLAppCardElement;
+    new (): HTMLAppCardElement;
+  };
+  interface HTMLElementTagNameMap {
+    "app-card": HTMLAppCardElement;
+  }
+  interface ElementTagNameMap {
+    "app-card": HTMLAppCardElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "app-card": JSXElements.AppCardAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface AppCardAttributes extends HTMLAttributes {
+      app?: {
+    icon: string,
+    title: string,
+    description: string
+  };
+    }
+  }
+}
+
+
+import {
   AppHome as AppHome
 } from './components/app-home/app-home';
 
