@@ -4,3 +4,8 @@ body {
   padding: 0px;
   font-family: sans-serif;
 }
+
+@font-face {
+    font-family: "Alexander Quill";
+    src: url('/font/alexander-quill.ttf');
+}

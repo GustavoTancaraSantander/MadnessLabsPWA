@@ -7,7 +7,11 @@ import { Component, Prop, State, Listen } from '@stencil/core';
 })
 export class AppApps {
 
-  @State() apps: any;
+  @State() apps: {
+    icon: string,
+    title: string,
+    description: string
+  }[];
 
   @Listen('mlIconClick')
   iconClicked(event) {

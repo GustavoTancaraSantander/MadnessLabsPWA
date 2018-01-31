@@ -5,7 +5,8 @@ exports.config = {
         "my-app",
         "app-home",
         "app-apps",
-        "app-card"
+        "app-card",
+        "madness-footer"
       ]
     },
     {

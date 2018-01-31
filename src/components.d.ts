@@ -168,6 +168,39 @@ declare global {
 
 
 import {
+  MadnessFooter as MadnessFooter
+} from './components/madness-footer/madness-footer';
+
+declare global {
+  interface HTMLMadnessFooterElement extends MadnessFooter, HTMLElement {
+  }
+  var HTMLMadnessFooterElement: {
+    prototype: HTMLMadnessFooterElement;
+    new (): HTMLMadnessFooterElement;
+  };
+  interface HTMLElementTagNameMap {
+    "madness-footer": HTMLMadnessFooterElement;
+  }
+  interface ElementTagNameMap {
+    "madness-footer": HTMLMadnessFooterElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      "madness-footer": JSXElements.MadnessFooterAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface MadnessFooterAttributes extends HTMLAttributes {
+      networks?: {
+    link: string,
+    icon: string
+  }[];
+    }
+  }
+}
+
+
+import {
   MyApp as MyApp
 } from './components/my-app/my-app';
 
