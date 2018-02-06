@@ -1,4 +1,4 @@
-# Ionic PWA Toolkit
+# Madness Labs - We <3 Web
 
 The Ionic PWA Toolkit is the recommended way to build production ready Progressive Web Apps (PWAs) with Ionic. This toolkit gets you started with [Stencil](https://stenciljs.com/) and Ionic (4.x+). This combination of tools gives you the ability to build a fast, efficient PWA with zero config needed and best practices out of the box.
 
