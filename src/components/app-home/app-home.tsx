@@ -71,7 +71,7 @@ export class AppHome {
             </ion-row>
           </ion-grid>
         </ion-content>
-        <madness-footer networks={this.networks}></madness-footer>
+        <madness-footer></madness-footer>
       </ion-page>
     );
   }

@@ -15,8 +15,9 @@ describe('madness-footer', () => {
       });
     });
 
-    it('should work without parameters', () => {
-      expect(element.textContent).toEqual('Your new madness-footer component');
+    it('should work without parameters', async () => {
+      await flush(element);
+      expect(element.textContent).toEqual('');
     });
   });
 });

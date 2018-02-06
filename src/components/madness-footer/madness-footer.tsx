@@ -16,11 +16,11 @@ export class MadnessFooter {
     return (
       <footer>
         <div class="social-icons">
-          {this.networks.map((network) =>
+          {this.networks ? this.networks.map((network) =>
             <a href={network.link}>
               <ion-icon name={network.icon}></ion-icon>
             </a>
-          )}
+          ) : null}
         </div>
       </footer>
     );
