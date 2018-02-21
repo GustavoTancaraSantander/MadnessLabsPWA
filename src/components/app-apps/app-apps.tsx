@@ -1,5 +1,6 @@
-import { Component, Prop, State, Listen } from '@stencil/core';
+import { Component, State, Listen, Element } from '@stencil/core';
 
+import { AppService } from '../../services/App';
 
 @Component({
   tag: 'app-apps',
@@ -7,11 +8,15 @@ import { Component, Prop, State, Listen } from '@stencil/core';
 })
 export class AppApps {
 
+  @Element() appsPageEl: HTMLElement;
+
   @State() apps: {
     icon: string,
     title: string,
     description: string
   }[];
+
+  App: any;
 
   @Listen('mlIconClick')
   iconClicked(event) {
@@ -20,18 +25,35 @@ export class AppApps {
   }
 
   componentWillLoad() {
-    this.apps = [
-      {
-        icon: "https://www.madnesslabs.net/img/referAFloodIcon.png",
-        title: "Refer A Flood",
-        description: "This is the referral app for The Flood Team water remediation company"
-      },
-      {
-        icon: "https://www.madnesslabs.net/img/transitionMethodsLogo.png",
-        title: "Transition Methods",
-        description: "Transitions Recruiting is an experienced team offering staffing services for a variety of disciplines and industries from key technical talent to C-level candidates. They tailor services to your needs offering retained, contingent, and contract plans."
-      }
-    ];
+    this.App = new AppService;
+    this.apps = [];
+    this.getApps();
+  }
+
+  getApps() {
+    this.App.all().then((apps) => {
+      apps.forEach((app) => {
+        this.apps = [...this.apps, app.data()];
+      });
+    });
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+
+    var nameFieldEl: HTMLInputElement = this.appsPageEl.querySelector('input[name="name"]');
+    var iconFieldEl: HTMLInputElement = this.appsPageEl.querySelector('input[name="icon"]');
+    var descriptionFieldEl: HTMLInputElement = this.appsPageEl.querySelector('input[name="description"]');
+
+    var newApp = {
+      icon: iconFieldEl.value,
+      title: nameFieldEl.value,
+      description: descriptionFieldEl.value
+    };
+
+    this.App.add(newApp).then(() => {
+      this.getApps();
+    });
   }
 
   render() {
@@ -53,6 +75,20 @@ export class AppApps {
               )}
             </ion-row>
           </ion-grid>
+          <form onSubmit={(event: UIEvent) => this.onSubmit(event)}>
+            <ion-card>
+              <ion-item>
+                <ion-input name="name" placeholder="Name" />
+              </ion-item>
+              <ion-item>
+                <ion-input name="icon" placeholder="Icon" />
+              </ion-item>
+              <ion-item>
+                <ion-input name="description" placeholder="Description" />
+              </ion-item>
+              <button type="submit">Submit</button>
+            </ion-card>
+          </form>
         </ion-content>
       </ion-page>
     );

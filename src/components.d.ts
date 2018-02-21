@@ -4,20 +4,25 @@
  * and imports for stencil collections that might be configured in your stencil.config.js file
  */
 
-import '@stencil/router';
-
-import '@ionic/core';
-
 import {
   MatchResults,
 } from '@stencil/router';
+
+declare global {
+  interface HTMLStencilElement extends HTMLElement {
+    componentOnReady(): Promise<this>;
+    componentOnReady(done: (ele?: this) => void): void;
+  }
+}
+
+
 
 import {
   AppApps as AppApps
 } from './components/app-apps/app-apps';
 
 declare global {
-  interface HTMLAppAppsElement extends AppApps, HTMLElement {
+  interface HTMLAppAppsElement extends AppApps, HTMLStencilElement {
   }
   var HTMLAppAppsElement: {
     prototype: HTMLAppAppsElement;
@@ -47,7 +52,7 @@ import {
 } from './components/app-card/app-card';
 
 declare global {
-  interface HTMLAppCardElement extends AppCard, HTMLElement {
+  interface HTMLAppCardElement extends AppCard, HTMLStencilElement {
   }
   var HTMLAppCardElement: {
     prototype: HTMLAppCardElement;
@@ -81,7 +86,7 @@ import {
 } from './components/app-home/app-home';
 
 declare global {
-  interface HTMLAppHomeElement extends AppHome, HTMLElement {
+  interface HTMLAppHomeElement extends AppHome, HTMLStencilElement {
   }
   var HTMLAppHomeElement: {
     prototype: HTMLAppHomeElement;
@@ -111,7 +116,7 @@ import {
 } from './components/app-profile/app-profile';
 
 declare global {
-  interface HTMLAppProfileElement extends AppProfile, HTMLElement {
+  interface HTMLAppProfileElement extends AppProfile, HTMLStencilElement {
   }
   var HTMLAppProfileElement: {
     prototype: HTMLAppProfileElement;
@@ -141,7 +146,7 @@ import {
 } from './components/lazy-img/lazy-img';
 
 declare global {
-  interface HTMLLazyImgElement extends LazyImg, HTMLElement {
+  interface HTMLLazyImgElement extends LazyImg, HTMLStencilElement {
   }
   var HTMLLazyImgElement: {
     prototype: HTMLLazyImgElement;
@@ -172,7 +177,7 @@ import {
 } from './components/madness-footer/madness-footer';
 
 declare global {
-  interface HTMLMadnessFooterElement extends MadnessFooter, HTMLElement {
+  interface HTMLMadnessFooterElement extends MadnessFooter, HTMLStencilElement {
   }
   var HTMLMadnessFooterElement: {
     prototype: HTMLMadnessFooterElement;
@@ -205,7 +210,7 @@ import {
 } from './components/my-app/my-app';
 
 declare global {
-  interface HTMLMyAppElement extends MyApp, HTMLElement {
+  interface HTMLMyAppElement extends MyApp, HTMLStencilElement {
   }
   var HTMLMyAppElement: {
     prototype: HTMLMyAppElement;

@@ -10,17 +10,19 @@
         "build": "stencil build",
         "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
         "devWithSW": "sd concurrent \"stencil build --dev --service-worker --watch\" \"stencil-dev-server\" ",
+        "deploy": "stencil build && firebase deploy",
         "serve": "stencil-dev-server",
         "start": "npm run dev",
         "test": "jest --no-cache",
         "test.watch": "jest --watch --no-cache"
     },
     "dependencies": {
-        "@ionic/core": "0.0.2-48",
-        "@stencil/core": "^0.3.0-5",
+        "@ionic/core": "0.0.2-65",
+        "@stencil/core": "0.6.1",
         "@stencil/router": "latest"
     },
     "devDependencies": {
+        "@stencil/sass": "0.0.2",
         "@stencil/dev-server": "latest",
         "@stencil/utils": "latest",
         "@types/jest": "^21.1.1",
