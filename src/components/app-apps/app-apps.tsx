@@ -14,9 +14,10 @@ export class AppApps {
     icon: string,
     title: string,
     description: string
-  }[];
+  }[] = [];
 
-  App: any;
+  App: AppService = new AppService;
+
 
   @Listen('mlIconClick')
   iconClicked(event) {
@@ -25,16 +26,12 @@ export class AppApps {
   }
 
   componentWillLoad() {
-    this.App = new AppService;
-    this.apps = [];
     this.getApps();
   }
 
   getApps() {
-    this.App.all().then((apps) => {
-      apps.forEach((app) => {
-        this.apps = [...this.apps, app.data()];
-      });
+    this.App.all().then((apps: any) => {
+      this.apps = apps;
     });
   }
 
@@ -45,7 +42,7 @@ export class AppApps {
     var iconFieldEl: HTMLInputElement = this.appsPageEl.querySelector('input[name="icon"]');
     var descriptionFieldEl: HTMLInputElement = this.appsPageEl.querySelector('input[name="description"]');
 
-    var newApp = {
+    var newApp: any = {
       icon: iconFieldEl.value,
       title: nameFieldEl.value,
       description: descriptionFieldEl.value

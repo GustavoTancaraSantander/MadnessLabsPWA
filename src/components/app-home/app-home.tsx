@@ -45,10 +45,12 @@ export class AppHome {
           <ion-grid>
             <ion-row>
               <ion-col>
-                <div class="bubble apps">
-                  <ion-icon name="phone-portrait"></ion-icon>
-                  <p>Apps</p>
-                </div>
+                <stencil-route-link url='/apps'>
+                  <div class="bubble apps">
+                    <ion-icon name="phone-portrait"></ion-icon>
+                    <p>Apps</p>
+                  </div>
+                </stencil-route-link>
               </ion-col>
               <ion-col>
                 <div class="bubble services">

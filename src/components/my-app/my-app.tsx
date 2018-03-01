@@ -1,11 +1,14 @@
 import { Component, Prop, Listen } from '@stencil/core';
 import { ToastController } from '@ionic/core';
 
+import { DatabaseService } from '../../services/Database';
 @Component({
   tag: 'my-app',
   styleUrl: 'my-app.scss'
 })
 export class MyApp {
+
+  Database: DatabaseService = new DatabaseService;
 
   @Prop({ connect: 'ion-toast-controller' }) toastCtrl: ToastController;
 
