@@ -2,17 +2,28 @@ import { Component, Prop, Listen } from '@stencil/core';
 import { ToastController } from '@ionic/core';
 
 import { DatabaseService } from '../../services/Database';
+import { AuthService } from '../../services/Auth';
+
 @Component({
   tag: 'my-app',
   styleUrl: 'my-app.scss'
 })
 export class MyApp {
 
-  Database: DatabaseService = new DatabaseService;
+  Database: DatabaseService;
+  Auth: AuthService;
 
   @Prop({ connect: 'ion-toast-controller' }) toastCtrl: ToastController;
 
   componentDidLoad() {
+    this.Database = new DatabaseService;
+    this.Auth = new AuthService;
+
+    this.Auth.onAuthChanged((data) => {
+      // If User is logged in
+      console.log('Auth Data', data);
+    });
+
     /*
       Handle service worker updates correctly.
       This code will show a toast letting the

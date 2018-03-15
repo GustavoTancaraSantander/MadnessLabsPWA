@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { Component, State, Element } from '@stencil/core';
 
 
 @Component({
@@ -6,6 +6,8 @@ import { Component, State } from '@stencil/core';
   styleUrl: 'app-home.scss'
 })
 export class AppHome {
+
+  @Element() appHomeEl: HTMLAppHomeElement;
 
   @State() networks: {
     link: string,
@@ -33,6 +35,15 @@ export class AppHome {
     ];
   }
 
+  login(event, _type: string = 'email') {
+    event.preventDefault();
+    const emailInputEl: HTMLInputElement = this.appHomeEl.querySelector('#email-input input');
+    const passwordInputEl: HTMLInputElement = this.appHomeEl.querySelector('#password-input input');
+
+    console.dir(emailInputEl);
+    console.dir(passwordInputEl);
+  }
+
   render() {
     return (
       <ion-page class='show-page'>
@@ -42,6 +53,17 @@ export class AppHome {
         </ion-header>
 
         <ion-content>
+          <ion-card>
+            <form onSubmit={(event) => this.login(event)}>
+              <ion-item>
+                <ion-input placeholder="Email Address" id="email-input" />
+              </ion-item>
+              <ion-item>
+                <ion-input type="password" placeholder="Password" id="password-input" />
+              </ion-item>
+              <ion-button type="submit">Login</ion-button>
+            </form>
+          </ion-card>
           <ion-grid>
             <ion-row>
               <ion-col>
