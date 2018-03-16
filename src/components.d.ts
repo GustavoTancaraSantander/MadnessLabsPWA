@@ -23,6 +23,9 @@ import '@stencil/router';
 import '@ionic/core';
 
 import {
+  AuthService,
+} from './services/Auth';
+import {
   MatchResults,
 } from '@stencil/router';
 
@@ -114,7 +117,7 @@ declare global {
   }
   namespace JSXElements {
     export interface AppHomeAttributes extends HTMLAttributes {
-      
+      auth?: AuthService;
     }
   }
 }

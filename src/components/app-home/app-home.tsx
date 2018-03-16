@@ -1,4 +1,6 @@
-import { Component, State, Element } from '@stencil/core';
+import { Component, State, Element, Prop } from '@stencil/core';
+
+import { AuthService } from '../../services/Auth';
 
 
 @Component({
@@ -9,12 +11,22 @@ export class AppHome {
 
   @Element() appHomeEl: HTMLAppHomeElement;
 
+  @Prop() auth: AuthService;
+
   @State() networks: {
     link: string,
     icon: string
   }[];
 
-  componentWillLoad() {
+  @State() session: any;
+
+  componentDidLoad() {
+    setTimeout(() => {
+      this.auth.onAuthChanged((data) => {
+        this.session = data;
+      });
+    }, 100);
+
     this.networks = [
       {
         link: 'https://twitter.com/MadnessLabs',
@@ -35,13 +47,84 @@ export class AppHome {
     ];
   }
 
-  login(event, _type: string = 'email') {
+  login(event, type: string = 'email') {
     event.preventDefault();
     const emailInputEl: HTMLInputElement = this.appHomeEl.querySelector('#email-input input');
     const passwordInputEl: HTMLInputElement = this.appHomeEl.querySelector('#password-input input');
 
-    console.dir(emailInputEl);
-    console.dir(passwordInputEl);
+    if (type === 'email') {
+      this.auth.withEmail(emailInputEl.value, passwordInputEl.value).then((data) => {
+        console.log(data);
+      }).catch((error) => {
+        console.error(error.message);
+      });
+    } else {
+      this.auth.withSocial(type).then((data) => {
+        console.log(data);
+      }).catch((error) => {
+        console.error(error.message);
+      });
+    }
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  register(event) {
+    event.preventDefault();
+    const emailInputEl: HTMLInputElement = this.appHomeEl.querySelector('#email-register-input input');
+    const passwordInputEl: HTMLInputElement = this.appHomeEl.querySelector('#password-register-input input');
+
+    this.auth.createUser(emailInputEl.value, passwordInputEl.value).then((data) => {
+      console.log(data);
+    }).catch((error) => {
+      console.error(error.message);
+    });
+  }
+
+  renderLoginCard() {
+    return (
+      <ion-card class="login-card">
+        <form onSubmit={(event) => this.login(event)}>
+          <h2>Login</h2>
+          <ion-item>
+            <ion-input placeholder="Email Address" id="email-input" />
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" placeholder="Password" id="password-input" />
+          </ion-item>
+          <ion-button type="submit">Login</ion-button>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-icon name="logo-facebook" onClick={(event: UIEvent) => this.login(event, 'facebook')} />
+              </ion-col>
+              <ion-col>
+                <ion-icon name="logo-google" onClick={(event: UIEvent) => this.login(event, 'google')} />
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-card>
+    );
+  }
+
+  renderRegisterCard() {
+    return (
+      <ion-card>
+        <form onSubmit={(event) => this.register(event)}>
+          <h2>Register</h2>
+          <ion-item>
+            <ion-input placeholder="Email Address" id="email-register-input" />
+          </ion-item>
+          <ion-item>
+            <ion-input type="password" placeholder="Password" id="password-register-input" />
+          </ion-item>
+          <ion-button type="submit">Register</ion-button>
+        </form>
+      </ion-card>
+    );
   }
 
   render() {
@@ -53,17 +136,8 @@ export class AppHome {
         </ion-header>
 
         <ion-content>
-          <ion-card>
-            <form onSubmit={(event) => this.login(event)}>
-              <ion-item>
-                <ion-input placeholder="Email Address" id="email-input" />
-              </ion-item>
-              <ion-item>
-                <ion-input type="password" placeholder="Password" id="password-input" />
-              </ion-item>
-              <ion-button type="submit">Login</ion-button>
-            </form>
-          </ion-card>
+          {this.session ? <ion-button onClick={this.logout.bind(this)}>Logout</ion-button> : this.renderLoginCard()}
+          {this.session ? null : this.renderRegisterCard()}
           <ion-grid>
             <ion-row>
               <ion-col>

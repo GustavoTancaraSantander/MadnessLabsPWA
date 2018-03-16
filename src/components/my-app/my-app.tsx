@@ -1,4 +1,4 @@
-import { Component, Prop, Listen } from '@stencil/core';
+import { Component, Prop, Listen, State } from '@stencil/core';
 import { ToastController } from '@ionic/core';
 
 import { DatabaseService } from '../../services/Database';
@@ -13,16 +13,21 @@ export class MyApp {
   Database: DatabaseService;
   Auth: AuthService;
 
+  @State() defaultProps: {
+    auth: AuthService,
+    db: DatabaseService
+  };
+
   @Prop({ connect: 'ion-toast-controller' }) toastCtrl: ToastController;
 
   componentDidLoad() {
     this.Database = new DatabaseService;
     this.Auth = new AuthService;
 
-    this.Auth.onAuthChanged((data) => {
-      // If User is logged in
-      console.log('Auth Data', data);
-    });
+    this.defaultProps = {
+      auth: this.Auth,
+      db: this.Database
+    };
 
     /*
       Handle service worker updates correctly.
@@ -54,14 +59,9 @@ export class MyApp {
       <ion-app>
         <main>
           <stencil-router>
-            <stencil-route url='/' component='app-home' exact={true}>
-            </stencil-route>
-
-            <stencil-route url='/apps' component='app-apps'>
-            </stencil-route>
-
-            <stencil-route url='/profile/:name' component='app-profile'>
-            </stencil-route>
+            <stencil-route url='/' component='app-home' exact={true} componentProps={this.defaultProps} />
+            <stencil-route url='/apps' component='app-apps' componentProps={this.defaultProps} />
+            <stencil-route url='/profile/:name' component='app-profile' componentProps={this.defaultProps} />
           </stencil-router>
         </main>
       </ion-app>

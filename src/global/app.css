@@ -1,3 +1,7 @@
+:root {
+  --theme-background-color: #333;
+  --ion-color-md-primary: green;
+}
 /* Document Level Styles */
 body {
   margin: 0px;
