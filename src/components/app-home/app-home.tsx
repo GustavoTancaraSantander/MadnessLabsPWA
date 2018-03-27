@@ -1,4 +1,5 @@
 import { Component, State, Element, Prop } from '@stencil/core';
+import { ModalController } from '@ionic/core';
 
 import { AuthService } from '../../services/Auth';
 
@@ -12,6 +13,7 @@ export class AppHome {
   @Element() appHomeEl: HTMLAppHomeElement;
 
   @Prop() auth: AuthService;
+  @Prop({ connect: 'ion-modal-controller' }) modalCtrl: ModalController;
 
   @State() networks: {
     link: string,
@@ -19,13 +21,23 @@ export class AppHome {
   }[];
 
   @State() session: any;
+  @State() modal: any;
 
   componentDidLoad() {
-    setTimeout(() => {
-      this.auth.onAuthChanged((data) => {
-        this.session = data;
-      });
-    }, 100);
+    // this.modalCtrl.create({
+    //   component: 'madness-cast-rater'
+    // }).then((modal) => {
+    //   this.modal = modal;
+    //   this.modal.present();
+    // }).catch((error) => {
+    //   console.error(error.message);
+    // });
+
+    // setTimeout(() => {
+    //   this.auth.onAuthChanged((data) => {
+    //     this.session = data;
+    //   });
+    // }, 100);
 
     this.networks = [
       {
@@ -129,11 +141,8 @@ export class AppHome {
 
   render() {
     return (
-      <ion-page class='show-page'>
-        <ion-header md-height='56px'>
-          <img src="https://www.madnesslabs.net/img/madnesslabs-logo.png" />
-          <b>Madness Labs</b>
-        </ion-header>
+      <ion-page>
+        <madness-header />
 
         <ion-content>
           {this.session ? <ion-button onClick={this.logout.bind(this)}>Logout</ion-button> : this.renderLoginCard()}

@@ -53,6 +53,11 @@ export class AppApps {
     });
   }
 
+  @Listen('ionInfinite')
+  onInifiniteScroll(event) {
+    console.log(event);
+  }
+
   render() {
     return (
       <ion-page class='show-page'>
@@ -86,6 +91,9 @@ export class AppApps {
               <button type="submit">Submit</button>
             </ion-card>
           </form>
+          <ion-infinite-scroll>
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
         </ion-content>
       </ion-page>
     );

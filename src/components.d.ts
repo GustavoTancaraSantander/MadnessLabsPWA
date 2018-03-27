@@ -3,6 +3,9 @@
  * It contains typing information for all components that exist in this project
  * and imports for stencil collections that might be configured in your stencil.config.js file
  */
+
+import '@stencil/core';
+
 declare global {
   namespace JSX {
     interface Element {}
@@ -13,14 +16,16 @@ declare global {
   interface HTMLStencilElement extends HTMLElement {
     componentOnReady(): Promise<this>;
     componentOnReady(done: (ele?: this) => void): void;
+
+    forceUpdate(): void;
   }
 
   interface HTMLAttributes {}
 }
 
 import 'ionicons';
-import '@stencil/router';
 import '@ionic/core';
+import '@stencil/router';
 
 import {
   AuthService,
@@ -29,186 +34,204 @@ import {
   MatchResults,
 } from '@stencil/router';
 
-import {
-  AppApps as AppApps
-} from './components/app-apps/app-apps';
-
 declare global {
-  interface HTMLAppAppsElement extends AppApps, HTMLStencilElement {
+  interface HTMLAppAppsElement extends HTMLStencilElement {
+
   }
   var HTMLAppAppsElement: {
     prototype: HTMLAppAppsElement;
     new (): HTMLAppAppsElement;
   };
   interface HTMLElementTagNameMap {
-    "app-apps": HTMLAppAppsElement;
+    'app-apps': HTMLAppAppsElement;
   }
   interface ElementTagNameMap {
-    "app-apps": HTMLAppAppsElement;
+    'app-apps': HTMLAppAppsElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "app-apps": JSXElements.AppAppsAttributes;
+      'app-apps': JSXElements.AppAppsAttributes;
     }
   }
   namespace JSXElements {
     export interface AppAppsAttributes extends HTMLAttributes {
-      
+
     }
   }
 }
 
 
-import {
-  AppCard as AppCard
-} from './components/app-card/app-card';
-
 declare global {
-  interface HTMLAppCardElement extends AppCard, HTMLStencilElement {
+  interface HTMLAppCardElement extends HTMLStencilElement {
+    'app': {
+    icon: string,
+    title: string,
+    description: string
+  };
   }
   var HTMLAppCardElement: {
     prototype: HTMLAppCardElement;
     new (): HTMLAppCardElement;
   };
   interface HTMLElementTagNameMap {
-    "app-card": HTMLAppCardElement;
+    'app-card': HTMLAppCardElement;
   }
   interface ElementTagNameMap {
-    "app-card": HTMLAppCardElement;
+    'app-card': HTMLAppCardElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "app-card": JSXElements.AppCardAttributes;
+      'app-card': JSXElements.AppCardAttributes;
     }
   }
   namespace JSXElements {
     export interface AppCardAttributes extends HTMLAttributes {
-      app?: {
+      'app'?: {
     icon: string,
     title: string,
     description: string
   };
+      'onMlIconClick'?: (event: CustomEvent) => void;
     }
   }
 }
 
 
-import {
-  AppHome as AppHome
-} from './components/app-home/app-home';
-
 declare global {
-  interface HTMLAppHomeElement extends AppHome, HTMLStencilElement {
+  interface HTMLAppHomeElement extends HTMLStencilElement {
+    'auth': AuthService;
   }
   var HTMLAppHomeElement: {
     prototype: HTMLAppHomeElement;
     new (): HTMLAppHomeElement;
   };
   interface HTMLElementTagNameMap {
-    "app-home": HTMLAppHomeElement;
+    'app-home': HTMLAppHomeElement;
   }
   interface ElementTagNameMap {
-    "app-home": HTMLAppHomeElement;
+    'app-home': HTMLAppHomeElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "app-home": JSXElements.AppHomeAttributes;
+      'app-home': JSXElements.AppHomeAttributes;
     }
   }
   namespace JSXElements {
     export interface AppHomeAttributes extends HTMLAttributes {
-      auth?: AuthService;
+      'auth'?: AuthService;
     }
   }
 }
 
 
-import {
-  AppProfile as AppProfile
-} from './components/app-profile/app-profile';
-
 declare global {
-  interface HTMLAppProfileElement extends AppProfile, HTMLStencilElement {
+  interface HTMLAppProfileElement extends HTMLStencilElement {
+    'match': MatchResults;
   }
   var HTMLAppProfileElement: {
     prototype: HTMLAppProfileElement;
     new (): HTMLAppProfileElement;
   };
   interface HTMLElementTagNameMap {
-    "app-profile": HTMLAppProfileElement;
+    'app-profile': HTMLAppProfileElement;
   }
   interface ElementTagNameMap {
-    "app-profile": HTMLAppProfileElement;
+    'app-profile': HTMLAppProfileElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "app-profile": JSXElements.AppProfileAttributes;
+      'app-profile': JSXElements.AppProfileAttributes;
     }
   }
   namespace JSXElements {
     export interface AppProfileAttributes extends HTMLAttributes {
-      match?: MatchResults;
+      'match'?: MatchResults;
     }
   }
 }
 
 
-import {
-  LazyImg as LazyImg
-} from './components/lazy-img/lazy-img';
-
 declare global {
-  interface HTMLLazyImgElement extends LazyImg, HTMLStencilElement {
+  interface HTMLLazyImgElement extends HTMLStencilElement {
+    'alt': string;
+    'src': string;
   }
   var HTMLLazyImgElement: {
     prototype: HTMLLazyImgElement;
     new (): HTMLLazyImgElement;
   };
   interface HTMLElementTagNameMap {
-    "lazy-img": HTMLLazyImgElement;
+    'lazy-img': HTMLLazyImgElement;
   }
   interface ElementTagNameMap {
-    "lazy-img": HTMLLazyImgElement;
+    'lazy-img': HTMLLazyImgElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "lazy-img": JSXElements.LazyImgAttributes;
+      'lazy-img': JSXElements.LazyImgAttributes;
     }
   }
   namespace JSXElements {
     export interface LazyImgAttributes extends HTMLAttributes {
-      alt?: string;
-      src?: string;
+      'alt'?: string;
+      'src'?: string;
     }
   }
 }
 
 
-import {
-  MadnessFooter as MadnessFooter
-} from './components/madness-footer/madness-footer';
+declare global {
+  interface HTMLMadnessCastRaterElement extends HTMLStencilElement {
+
+  }
+  var HTMLMadnessCastRaterElement: {
+    prototype: HTMLMadnessCastRaterElement;
+    new (): HTMLMadnessCastRaterElement;
+  };
+  interface HTMLElementTagNameMap {
+    'madness-cast-rater': HTMLMadnessCastRaterElement;
+  }
+  interface ElementTagNameMap {
+    'madness-cast-rater': HTMLMadnessCastRaterElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'madness-cast-rater': JSXElements.MadnessCastRaterAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface MadnessCastRaterAttributes extends HTMLAttributes {
+
+    }
+  }
+}
+
 
 declare global {
-  interface HTMLMadnessFooterElement extends MadnessFooter, HTMLStencilElement {
+  interface HTMLMadnessFooterElement extends HTMLStencilElement {
+    'networks': {
+    link: string,
+    icon: string
+  }[];
   }
   var HTMLMadnessFooterElement: {
     prototype: HTMLMadnessFooterElement;
     new (): HTMLMadnessFooterElement;
   };
   interface HTMLElementTagNameMap {
-    "madness-footer": HTMLMadnessFooterElement;
+    'madness-footer': HTMLMadnessFooterElement;
   }
   interface ElementTagNameMap {
-    "madness-footer": HTMLMadnessFooterElement;
+    'madness-footer': HTMLMadnessFooterElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "madness-footer": JSXElements.MadnessFooterAttributes;
+      'madness-footer': JSXElements.MadnessFooterAttributes;
     }
   }
   namespace JSXElements {
     export interface MadnessFooterAttributes extends HTMLAttributes {
-      networks?: {
+      'networks'?: {
     link: string,
     icon: string
   }[];
@@ -217,31 +240,55 @@ declare global {
 }
 
 
-import {
-  MyApp as MyApp
-} from './components/my-app/my-app';
+declare global {
+  interface HTMLMadnessHeaderElement extends HTMLStencilElement {
+
+  }
+  var HTMLMadnessHeaderElement: {
+    prototype: HTMLMadnessHeaderElement;
+    new (): HTMLMadnessHeaderElement;
+  };
+  interface HTMLElementTagNameMap {
+    'madness-header': HTMLMadnessHeaderElement;
+  }
+  interface ElementTagNameMap {
+    'madness-header': HTMLMadnessHeaderElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'madness-header': JSXElements.MadnessHeaderAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface MadnessHeaderAttributes extends HTMLAttributes {
+
+    }
+  }
+}
+
 
 declare global {
-  interface HTMLMyAppElement extends MyApp, HTMLStencilElement {
+  interface HTMLMyAppElement extends HTMLStencilElement {
+
   }
   var HTMLMyAppElement: {
     prototype: HTMLMyAppElement;
     new (): HTMLMyAppElement;
   };
   interface HTMLElementTagNameMap {
-    "my-app": HTMLMyAppElement;
+    'my-app': HTMLMyAppElement;
   }
   interface ElementTagNameMap {
-    "my-app": HTMLMyAppElement;
+    'my-app': HTMLMyAppElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "my-app": JSXElements.MyAppAttributes;
+      'my-app': JSXElements.MyAppAttributes;
     }
   }
   namespace JSXElements {
     export interface MyAppAttributes extends HTMLAttributes {
-      
+
     }
   }
 }
