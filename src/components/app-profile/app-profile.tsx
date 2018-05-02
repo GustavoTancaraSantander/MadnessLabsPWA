@@ -1,6 +1,5 @@
 import { Component, Listen, Prop, State } from '@stencil/core';
-import { MatchResults } from '@stencil/router';
-import { ToastController } from '@ionic/core';
+import { OverlayController } from '@ionic/core';
 
 import { urlB64ToUint8Array } from '../../helpers/utils';
 
@@ -10,9 +9,8 @@ import { urlB64ToUint8Array } from '../../helpers/utils';
   styleUrl: 'app-profile.scss'
 })
 export class AppProfile {
-
-  @Prop() match: MatchResults;
-  @Prop({ connect: 'ion-toast-controller' }) toastCtrl: ToastController;
+  @Prop({ connect: 'ion-toast-controller' }) toastCtrl: OverlayController;
+  @Prop() username: string;
 
   @State() notify: boolean;
   @State() swSupport: boolean;
@@ -52,42 +50,39 @@ export class AppProfile {
           reg.pushManager.subscribe({
             userVisibleOnly: true,
             applicationServerKey: this.publicServerKey
-          })
-            .then((sub: PushSubscription) => {
-              // our user is now subscribed
-              // lets reflect this in our UI
-              console.log('web push subscription: ', sub);
+          }).then((sub: PushSubscription) => {
+            // our user is now subscribed
+            // lets reflect this in our UI
+            console.log('web push subscription: ', sub);
 
-              this.notify = true;
-            })
+            this.notify = true;
+          });
         }
       })
     })
   }
 
   render() {
-    if (this.match && this.match.params.name) {
-      return (
-        <ion-page class='show-page'>
-          <ion-header md-height='56px'>
-            <ion-toolbar color='primary'>
-              <ion-title>Ionic PWA Toolkit</ion-title>
-            </ion-toolbar>
-          </ion-header>
+    return (
+      <ion-page class='show-page'>
+        <ion-header md-height='56px'>
+          <ion-toolbar color='primary'>
+            <ion-title>Ionic PWA Toolkit</ion-title>
+          </ion-toolbar>
+        </ion-header>
 
-          <ion-content>
-            <p>
-              Hello! My name is {this.match.params.name}.
-              My name was passed in through a route param!
-            </p>
+        <ion-content>
+          <p>
+            Hello! My name is {this.username}.
+            My name was passed in through a route param!
+          </p>
 
-            {this.swSupport ? <ion-item>
-              <ion-label>Notifications</ion-label>
-              <ion-toggle checked={this.notify} disabled={this.notify}></ion-toggle>
-            </ion-item> : null}
-          </ion-content>
-        </ion-page>
-      );
-    }
+          {this.swSupport ? <ion-item>
+            <ion-label>Notifications</ion-label>
+            <ion-toggle checked={this.notify} disabled={this.notify}></ion-toggle>
+          </ion-item> : null}
+        </ion-content>
+      </ion-page>
+    );
   }
 }

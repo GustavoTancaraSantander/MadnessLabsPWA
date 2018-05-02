@@ -1,8 +1,9 @@
 import '@ionic/core';
 import '@stencil/core';
+import 'madnesscast';
 
 import { Component, Prop, Listen, State } from '@stencil/core';
-import { ToastController } from '@ionic/core';
+import { OverlayController } from '@ionic/core';
 
 import { DatabaseService } from '../../services/Database';
 import { AuthService } from '../../services/Auth';
@@ -21,7 +22,7 @@ export class MyApp {
     db: DatabaseService
   };
 
-  @Prop({ connect: 'ion-toast-controller' }) toastCtrl: ToastController;
+  @Prop({ connect: 'ion-toast-controller' }) toastCtrl: OverlayController;
 
   componentDidLoad() {
     this.Database = new DatabaseService;
@@ -46,7 +47,7 @@ export class MyApp {
         message: 'New version available',
         showCloseButton: true,
         closeButtonText: 'Reload'
-      }).then((toast) => {
+      }).then((toast: any) => {
         toast.present();
       });
     })
@@ -80,7 +81,7 @@ export class MyApp {
             <ion-router id="router" useHash={false}>
               <ion-route url='/' component='app-home' componentProps={this.defaultProps} />
               <ion-route url='/apps' component='app-apps' componentProps={this.defaultProps} />
-              <ion-route url='/profile/:name' component='app-profile' componentProps={this.defaultProps} />
+              <ion-route url='/profile/:username' component='app-profile' componentProps={this.defaultProps} />
               <ion-nav></ion-nav>
             </ion-router>
           </div>

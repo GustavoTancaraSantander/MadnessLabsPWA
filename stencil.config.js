@@ -1,6 +1,7 @@
 const sass = require('@stencil/sass');
 
 exports.config = {
+  hashFileNames: false,
   outputTargets: [
     {
       type: 'www',

@@ -1,8 +1,10 @@
+import * as firebase from "firebase";
+
 //import * as firebase from 'firebase';
-declare var firebase;
+
 
 export class DatabaseService {
-    instance: any;
+    instance: firebase.firestore.Firestore;
 
     constructor() {
         var config = {

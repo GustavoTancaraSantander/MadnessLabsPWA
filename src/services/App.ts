@@ -1,14 +1,8 @@
 import { DatabaseService } from './Database';
 
-interface INewApp {
-    name: string,
-    icon: string,
-    link: string
-}
-
 export class AppService {
 
-    Database: DatabaseService = new DatabaseService;
+    db: DatabaseService = new DatabaseService;
 
     /**
      * Get list of apps from firestore
@@ -17,7 +11,8 @@ export class AppService {
     all() {
         return new Promise((resolve, reject) => {
             var appsArr = [];
-            this.Database.instance.collection("apps").get().then((apps) => {
+            const appCollection = this.db.instance.collection("apps");
+            appCollection.get().then((apps) => {
                 apps.forEach((app) => {
                     appsArr.push(app.data());
                 });
@@ -30,12 +25,16 @@ export class AppService {
         });
     }
 
+    async find(id: string) {
+        return this.db.instance.collection('apps').doc(id).get();
+    }
+
     /**
      * Add an app to list on firestore
      * @param newApp The new app's information
      * @returns       Promise
      */
-    add(newApp: INewApp) {
-        return this.Database.instance.collection("apps").add(newApp);
+    add(newApp: MadnessLabs.apps.IDocument) {
+        return this.db.instance.collection("apps").add(newApp);
     }
 }

@@ -1,5 +1,5 @@
 import { Component, State, Element, Prop } from '@stencil/core';
-import { ModalController } from '@ionic/core';
+import { OverlayController } from '@ionic/core';
 
 import { AuthService } from '../../services/Auth';
 
@@ -13,7 +13,7 @@ export class AppHome {
   @Element() appHomeEl: HTMLAppHomeElement;
 
   @Prop() auth: AuthService;
-  @Prop({ connect: 'ion-modal-controller' }) modalCtrl: ModalController;
+  @Prop({ connect: 'ion-modal-controller' }) modalCtrl: OverlayController;
 
   @State() networks: {
     link: string,
@@ -26,7 +26,7 @@ export class AppHome {
   componentDidLoad() {
     // this.modalCtrl.create({
     //   component: 'madness-cast-rater'
-    // }).then((modal) => {
+    // }).then((modal:any) => {
     //   this.modal = modal;
     //   this.modal.present();
     // }).catch((error) => {
@@ -145,6 +145,7 @@ export class AppHome {
         <madness-header />
 
         <ion-content>
+          <madness-cast episode="https://www.youtube.com/embed/CBnJxNbRTD4?ecver=2"></madness-cast>
           {this.session ? <ion-button onClick={this.logout.bind(this)}>Logout</ion-button> : this.renderLoginCard()}
           {this.session ? null : this.renderRegisterCard()}
           <ion-grid>

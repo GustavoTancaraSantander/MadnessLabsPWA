@@ -25,19 +25,22 @@ declare global {
 
 import 'ionicons';
 import '@ionic/core';
-import '@stencil/router';
+import 'madnesscast';
 
 import {
   AuthService,
 } from './services/Auth';
-import {
-  MatchResults,
-} from '@stencil/router';
 
 declare global {
-  interface HTMLAppAppsElement extends HTMLStencilElement {
 
+  namespace StencilComponents {
+    interface AppApps {
+
+    }
   }
+
+  interface HTMLAppAppsElement extends StencilComponents.AppApps, HTMLStencilElement {}
+
   var HTMLAppAppsElement: {
     prototype: HTMLAppAppsElement;
     new (): HTMLAppAppsElement;
@@ -62,13 +65,19 @@ declare global {
 
 
 declare global {
-  interface HTMLAppCardElement extends HTMLStencilElement {
-    'app': {
+
+  namespace StencilComponents {
+    interface AppCard {
+      'app': {
     icon: string,
     title: string,
     description: string
   };
+    }
   }
+
+  interface HTMLAppCardElement extends StencilComponents.AppCard, HTMLStencilElement {}
+
   var HTMLAppCardElement: {
     prototype: HTMLAppCardElement;
     new (): HTMLAppCardElement;
@@ -98,9 +107,15 @@ declare global {
 
 
 declare global {
-  interface HTMLAppHomeElement extends HTMLStencilElement {
-    'auth': AuthService;
+
+  namespace StencilComponents {
+    interface AppHome {
+      'auth': AuthService;
+    }
   }
+
+  interface HTMLAppHomeElement extends StencilComponents.AppHome, HTMLStencilElement {}
+
   var HTMLAppHomeElement: {
     prototype: HTMLAppHomeElement;
     new (): HTMLAppHomeElement;
@@ -125,9 +140,15 @@ declare global {
 
 
 declare global {
-  interface HTMLAppProfileElement extends HTMLStencilElement {
-    'match': MatchResults;
+
+  namespace StencilComponents {
+    interface AppProfile {
+      'username': string;
+    }
   }
+
+  interface HTMLAppProfileElement extends StencilComponents.AppProfile, HTMLStencilElement {}
+
   var HTMLAppProfileElement: {
     prototype: HTMLAppProfileElement;
     new (): HTMLAppProfileElement;
@@ -145,17 +166,23 @@ declare global {
   }
   namespace JSXElements {
     export interface AppProfileAttributes extends HTMLAttributes {
-      'match'?: MatchResults;
+      'username'?: string;
     }
   }
 }
 
 
 declare global {
-  interface HTMLLazyImgElement extends HTMLStencilElement {
-    'alt': string;
-    'src': string;
+
+  namespace StencilComponents {
+    interface LazyImg {
+      'alt': string;
+      'src': string;
+    }
   }
+
+  interface HTMLLazyImgElement extends StencilComponents.LazyImg, HTMLStencilElement {}
+
   var HTMLLazyImgElement: {
     prototype: HTMLLazyImgElement;
     new (): HTMLLazyImgElement;
@@ -181,9 +208,15 @@ declare global {
 
 
 declare global {
-  interface HTMLMadnessCastRaterElement extends HTMLStencilElement {
 
+  namespace StencilComponents {
+    interface MadnessCastRater {
+
+    }
   }
+
+  interface HTMLMadnessCastRaterElement extends StencilComponents.MadnessCastRater, HTMLStencilElement {}
+
   var HTMLMadnessCastRaterElement: {
     prototype: HTMLMadnessCastRaterElement;
     new (): HTMLMadnessCastRaterElement;
@@ -208,12 +241,18 @@ declare global {
 
 
 declare global {
-  interface HTMLMadnessFooterElement extends HTMLStencilElement {
-    'networks': {
+
+  namespace StencilComponents {
+    interface MadnessFooter {
+      'networks': {
     link: string,
     icon: string
   }[];
+    }
   }
+
+  interface HTMLMadnessFooterElement extends StencilComponents.MadnessFooter, HTMLStencilElement {}
+
   var HTMLMadnessFooterElement: {
     prototype: HTMLMadnessFooterElement;
     new (): HTMLMadnessFooterElement;
@@ -241,9 +280,15 @@ declare global {
 
 
 declare global {
-  interface HTMLMadnessHeaderElement extends HTMLStencilElement {
 
+  namespace StencilComponents {
+    interface MadnessHeader {
+
+    }
   }
+
+  interface HTMLMadnessHeaderElement extends StencilComponents.MadnessHeader, HTMLStencilElement {}
+
   var HTMLMadnessHeaderElement: {
     prototype: HTMLMadnessHeaderElement;
     new (): HTMLMadnessHeaderElement;
@@ -268,9 +313,15 @@ declare global {
 
 
 declare global {
-  interface HTMLMyAppElement extends HTMLStencilElement {
 
+  namespace StencilComponents {
+    interface MyApp {
+
+    }
   }
+
+  interface HTMLMyAppElement extends StencilComponents.MyApp, HTMLStencilElement {}
+
   var HTMLMyAppElement: {
     prototype: HTMLMyAppElement;
     new (): HTMLMyAppElement;
