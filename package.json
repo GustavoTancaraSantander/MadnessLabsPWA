@@ -19,15 +19,15 @@
     "dependencies": {
         "@ionic/core": "^4.0.0-alpha.4",
         "@stencil/core": "^0.8.0",
+        "firebase": "^4.13.1",
         "madnesscast": "0.0.2"
     },
     "devDependencies": {
         "@stencil/dev-server": "latest",
         "@stencil/sass": "0.0.3",
         "@stencil/utils": "latest",
-        "@types/firebase": "^3.2.1",
-        "@types/jest": "^21.1.1",
-        "jest": "^21.2.1"
+        "@types/jest": "^22.2.2",
+        "jest": "^22.4.3"
     },
     "repository": {
         "type": "git",

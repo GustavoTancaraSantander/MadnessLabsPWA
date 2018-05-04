@@ -1,7 +1,9 @@
 const sass = require('@stencil/sass');
 
 exports.config = {
-  hashFileNames: false,
+  nodeResolve: {
+    browser: true
+  },
   outputTargets: [
     {
       type: 'www',

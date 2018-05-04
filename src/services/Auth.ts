@@ -1,12 +1,15 @@
-/**
- * @module Services
- */
 //import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { GooglePlus } from '@ionic-native/google-plus';
 //import { TwitterConnect } from '@ionic-native/twitter-connect';
-//import * as firebase from 'firebase';
 
-declare var firebase: any;
+import firebase from 'firebase';
+//import '@firebase/auth';
+
+//declare var firebase;
+
+/**
+ * @module Services
+ */
 export class AuthService {
     //public service: firebase.auth.Auth;
     public service: any;

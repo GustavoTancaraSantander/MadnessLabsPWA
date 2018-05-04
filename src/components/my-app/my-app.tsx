@@ -1,5 +1,4 @@
 import '@ionic/core';
-import '@stencil/core';
 import 'madnesscast';
 
 import { Component, Prop, Listen, State } from '@stencil/core';
@@ -18,11 +17,23 @@ export class MyApp {
   Auth: AuthService;
 
   @State() defaultProps: {
-    auth: AuthService,
-    db: DatabaseService
+    auth?: AuthService,
+    db?: DatabaseService
   };
 
   @Prop({ connect: 'ion-toast-controller' }) toastCtrl: OverlayController;
+
+  @Listen('window:swUpdate')
+  async onSWUpdate() {
+    const toast:any = await this.toastCtrl.create({
+      message: 'New version available',
+      showCloseButton: true,
+      closeButtonText: 'Reload'
+    });
+    await toast.present();
+    await toast.onWillDismiss()
+    window.location.reload();
+  }
 
   componentDidLoad() {
     this.Database = new DatabaseService;
@@ -32,25 +43,6 @@ export class MyApp {
       auth: this.Auth,
       db: this.Database
     };
-
-    /*
-      Handle service worker updates correctly.
-      This code will show a toast letting the
-      user of the PWA know that there is a 
-      new version available. When they click the
-      reload button it then reloads the page 
-      so that the new service worker can take over
-      and serve the fresh content
-    */
-    window.addEventListener('swUpdate', () => {
-      this.toastCtrl.create({
-        message: 'New version available',
-        showCloseButton: true,
-        closeButtonText: 'Reload'
-      }).then((toast: any) => {
-        toast.present();
-      });
-    })
   }
 
   @Listen('body:ionToastWillDismiss')
@@ -70,8 +62,8 @@ export class MyApp {
           <ion-menu content-id="app-content">
             <ion-content>
               <ion-list>
-                <ion-item icon-left href="/apps" onClick={this.closeMenu.bind(this)}>
-                  <ion-icon name="md-" />
+                <ion-item href="/apps">
+                  <ion-icon name="md-grid" />
                   Apps
                 </ion-item>
               </ion-list>
@@ -82,8 +74,8 @@ export class MyApp {
               <ion-route url='/' component='app-home' componentProps={this.defaultProps} />
               <ion-route url='/apps' component='app-apps' componentProps={this.defaultProps} />
               <ion-route url='/profile/:username' component='app-profile' componentProps={this.defaultProps} />
-              <ion-nav></ion-nav>
             </ion-router>
+            <ion-nav swipeBackEnabled={false} main></ion-nav>
           </div>
         </ion-split-pane>
       </ion-app>

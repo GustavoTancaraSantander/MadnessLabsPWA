@@ -1,10 +1,14 @@
-import * as firebase from "firebase";
+import firebase from 'firebase';
+import '@firebase/firestore'
 
-//import * as firebase from 'firebase';
+//declare var firebase;
 
-
+/**
+ * @module Services
+ */
 export class DatabaseService {
-    instance: firebase.firestore.Firestore;
+    //instance: firebase.firestore.Firestore;
+    instance: any;
 
     constructor() {
         var config = {
@@ -17,6 +21,10 @@ export class DatabaseService {
         };
         if (!firebase.apps.length) {
             firebase.initializeApp(config);
+
+            firebase.firestore().settings({
+                timestampsInSnapshots: true
+            });
 
             firebase.firestore().enablePersistence()
                 .then(() => {
