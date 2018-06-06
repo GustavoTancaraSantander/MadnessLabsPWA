@@ -2,10 +2,10 @@
 //import { GooglePlus } from '@ionic-native/google-plus';
 //import { TwitterConnect } from '@ionic-native/twitter-connect';
 
-import firebase from 'firebase';
+//import firebase from 'firebase';
 //import '@firebase/auth';
 
-//declare var firebase;
+declare var firebase;
 
 /**
  * @module Services

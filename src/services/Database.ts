@@ -1,49 +1,114 @@
-import firebase from 'firebase';
-import '@firebase/firestore'
+// import firebase from 'firebase';
+// import '@firebase/firestore'
+declare var firebase: any;
 
-//declare var firebase;
-
-/**
- * @module Services
- */
 export class DatabaseService {
-    //instance: firebase.firestore.Firestore;
-    instance: any;
+  public service: any;
+  public watchers: any = {};
 
-    constructor() {
-        var config = {
-            apiKey: "AIzaSyBpVG2JOIVTXfO-fWx7-YZq938dSINu9Lc",
-            authDomain: "madness-labs-pwa.firebaseapp.com",
-            databaseURL: "https://madness-labs-pwa.firebaseio.com",
-            projectId: "madness-labs-pwa",
-            storageBucket: "",
-            messagingSenderId: "540141413358"
-        };
-        if (!firebase.apps.length) {
-            firebase.initializeApp(config);
+  public constructor() {
+    this.service = firebase.firestore();
+    const settings = { timestampsInSnapshots: true };
+    this.service.settings(settings);
+    firebase
+      .firestore()
+      .enablePersistence()
+      .then(() => {
+        this.service = firebase.firestore();
+        this.service.settings(settings);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  }
 
-            firebase.firestore().settings({
-                timestampsInSnapshots: true
-            });
+  public async all(collectionName: string): Promise<any> {
+    const collection = await this.get(collectionName);
+    const data = {};
 
-            firebase.firestore().enablePersistence()
-                .then(() => {
-                    // Initialize Cloud Firestore through firebase
-                    this.instance = firebase.firestore();
-                })
-                .catch((err) => {
-                    if (err.code == 'failed-precondition') {
-                        // Multiple tabs open, persistence can only be enabled
-                        // in one tab at a a time.
-                        // ...
-                    } else if (err.code == 'unimplemented') {
-                        // The current browser does not support all of the
-                        // features required to enable persistence
-                        // ...
-                    }
-                });
-        } else {
-            this.instance = firebase.firestore();
-        }
+    await collection.forEach(doc => {
+      data[doc.id] = doc.data();
+    });
+
+    return data;
+  }
+
+  public async call(functionName: string, payload: any = {}) {
+    return firebase.functions().httpsCallable(functionName)(payload);
+  }
+
+  public async list(collectionName: string) {
+    const collection = await this.get(collectionName);
+    const data = [];
+
+    await collection.forEach(doc => {
+      data.push({ ...doc.data(), id: doc.id });
+    });
+
+    return data;
+  }
+
+  public async add(collectionName: string, data: any, id?: number | string) {
+    let document = await this.collection(collectionName);
+    document = id ? document.doc(id) : document.doc();
+
+    return document.set(data);
+  }
+
+  public collection(collectionName: string) {
+    return this.service.collection(collectionName);
+  }
+
+  public get(collectionName: string) {
+    return this.collection(collectionName).get();
+  }
+
+  public document(collectionName: string, id: string) {
+    return this.collection(collectionName).doc(id);
+  }
+
+  public getDocument(collectionName: string, id: string) {
+    return this.document(collectionName, id).get();
+  }
+
+  public async find(collectionName: string, id: string) {
+    const document = await this.getDocument(collectionName, id);
+
+    return { ...document.data(), id: document.id };
+  }
+
+  public async update(collectionName: string, id: string, data: any) {
+    const document = this.document(collectionName, id);
+    await document.set(data, { merge: true });
+    const newDocument = await document.get();
+
+    return newDocument.data();
+  }
+
+  public watchDocument(collectionName: string, id: string, callback) {
+    this.watchers[`${collectionName}:${id}`] = this.document(
+      collectionName,
+      id
+    ).onSnapshot(doc => {
+      if (callback && typeof callback === "function") {
+        callback({ data: doc.data() });
+      }
+    });
+  }
+
+  public unwatchDocument(collectionName: string, id: string) {
+    const watcherName = `${collectionName}:${id}`;
+    if (
+      this.watchers[watcherName] &&
+      typeof this.watchers[watcherName] === "function"
+    ) {
+      this.watchers[watcherName]();
+
+      return true;
+    } else {
+      console.log(`There is no watcher running on ${watcherName} document.`);
+
+      return false;
     }
+  }
 }
