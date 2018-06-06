@@ -41,11 +41,6 @@
     "enjin": {
         "root": "www"
     },
-    "husky": {
-        "hooks": {
-            "pre-push": "npm run git:prepush"
-        }
-    },
     "dependencies": {
         "@ionic/core": "^4.0.0-alpha.7",
         "@stencil/core": "^0.9.6",
