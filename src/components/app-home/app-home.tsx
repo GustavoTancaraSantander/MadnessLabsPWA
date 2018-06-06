@@ -1,10 +1,10 @@
-import { Component, Prop } from "@stencil/core";
-import { AuthService } from "../../services/auth";
-import { ConfigService } from "../../services/config";
+import { Component, Prop } from '@stencil/core';
+import { AuthService } from '../../services/auth';
+import { ConfigService } from '../../services/config';
 
 @Component({
-  tag: "app-home",
-  styleUrl: "app-home.scss"
+  tag: 'app-home',
+  styleUrl: 'app-home.scss'
 })
 export class AppHome {
   @Prop() auth: AuthService;

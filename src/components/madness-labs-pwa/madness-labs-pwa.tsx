@@ -2,8 +2,8 @@ import '@ionic/core';
 
 import { Component, Listen, State } from '@stencil/core';
 
-import { DatabaseService } from '../../services/database';
 import { AuthService } from '../../services/auth';
+import { DatabaseService } from '../../services/database';
 
 @Component({
   tag: 'madness-labs-pwa',
@@ -19,7 +19,7 @@ export class MyApp {
     db?: DatabaseService
   };
 
-  //@Prop({ connect: 'ion-toast-controller' }) toastCtrl: HTMLIonToastControllerElement;
+  // @Prop({ connect: 'ion-toast-controller' }) toastCtrl: HTMLIonToastControllerElement;
 
   // @Listen('window:swUpdate')
   // async onSWUpdate() {
@@ -34,8 +34,8 @@ export class MyApp {
   // }
 
   componentDidLoad() {
-    this.Database = new DatabaseService;
-    this.Auth = new AuthService;
+    this.Database = new DatabaseService();
+    this.Auth = new AuthService();
 
     this.defaultProps = {
       auth: this.Auth,
@@ -49,7 +49,7 @@ export class MyApp {
   }
 
   closeMenu() {
-    var ionMenu: HTMLIonMenuElement = document.querySelector('ion-menu');
+    const ionMenu: HTMLIonMenuElement = document.querySelector('ion-menu');
     ionMenu.close();
   }
 
@@ -69,7 +69,7 @@ export class MyApp {
           </ion-menu>
           <div main id="app-content">
             <ion-router id="router" useHash={false}>
-              <ion-route url='/' component='app-home' componentProps={this.defaultProps} />
+              <ion-route url="/" component="app-home" componentProps={this.defaultProps} />
             </ion-router>
             <ion-nav swipeBackEnabled={false} main />
           </div>

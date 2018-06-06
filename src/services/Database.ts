@@ -90,7 +90,7 @@ export class DatabaseService {
       collectionName,
       id
     ).onSnapshot(doc => {
-      if (callback && typeof callback === "function") {
+      if (callback && typeof callback === 'function') {
         callback({ data: doc.data() });
       }
     });
@@ -100,7 +100,7 @@ export class DatabaseService {
     const watcherName = `${collectionName}:${id}`;
     if (
       this.watchers[watcherName] &&
-      typeof this.watchers[watcherName] === "function"
+      typeof this.watchers[watcherName] === 'function'
     ) {
       this.watchers[watcherName]();
 
